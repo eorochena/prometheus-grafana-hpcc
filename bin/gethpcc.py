@@ -6,7 +6,10 @@ import getpass
 
 xml_remote = '/etc/HPCCSystems/environment.xml'
 xml_local = '/tmp/environment.xml'
-user = 'root'
+
+def username():
+    user = input('Enter username > ')
+    return user
 
 def ip_address():
     address = input('Enter IP of remote environment > ')
@@ -22,7 +25,7 @@ def environment_name():
 
 def getxml():
     host = paramiko.Transport((ip_address(), 22))
-    host.connect(username=user, password=authentication())
+    host.connect(username=username(), password=authentication())
     sftp = paramiko.SFTPClient.from_transport(host)
     sftp.get(xml_remote, xml_local)
     return xml_local
@@ -110,20 +113,22 @@ class XMLParser:
         doc_root = ParseXML.getroot()
         RoxieCluster = {}
         for i in doc_root.findall('.//RoxieCluster'):
-            #try:
-            roxie_name = i.attrib['name']
-            sisters = []
-            print(sisters)
-            for roxie_server in doc_root.findall(".//*[@name='%s']/RoxieServerProcess" % roxie_name):
-                bad_name = roxie_server.attrib['computer']
-                for hardware in doc_root.findall(".//Hardware/Computer"):
-                    if bad_name == hardware.attrib['name']:
-                        sisters.append(hardware.attrib['netAddress'])
-            RoxieCluster[roxie_name] = sisters
-            #except Exception as e:
+            try:
+                roxie_attributes = i.attrib
+                for i in roxie_attributes:
+                    if i == 'name':
+                        roxie_name = roxie_attributes[i]
+                print(roxie_name)
+                sisters = []
+                for roxie_server in doc_root.findall(".//*[@name='%s']/RoxieServerProcess" % roxie_name):
+                    bad_name = roxie_server.attrib['computer']
+                    for hardware in doc_root.findall(".//Hardware/Computer"):
+                        if bad_name == hardware.attrib['name']:
+                            sisters.append(hardware.attrib['netAddress'])
+                RoxieCluster[roxie_name] = sisters
+            except:
                 # Me no care
-                #print("e")
-                #pass
+                pass
         return RoxieCluster
 
     def sasha(self):
