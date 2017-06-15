@@ -41,15 +41,15 @@ class XMLParser:
         doc_root = parsexml.getroot()
         ip_addresses = []
         for i in doc_root.findall('.//DafilesrvProcess/Instance'):
-            ip = i.attrib['netAddress']
-            ip_addresses.append(ip)
+            ip_addresses.append(i.attrib['netAddress'])
         return ip_addresses
 
     def dali(self):
         ParseXML = ET.parse(xml_local)
         doc_root = ParseXML.getroot()
+        DaliIP = []
         for i in doc_root.findall('.//DaliServerProcess/Instance'):
-            DaliIP = i.attrib['netAddress']
+            DaliIP.append(i.attrib['netAddress'])
         return DaliIP
 
     def eclccservers(self):
@@ -57,8 +57,7 @@ class XMLParser:
         doc_root = ParseXML.getroot()
         eclservers = []
         for i in doc_root.findall('.//EclCCServerProcess/Instance'):
-            ECLIP = i.attrib['netAddress']
-            eclservers.append(ECLIP)
+            eclservers.append(i.attrib['netAddress'])
         return eclservers
 
     def eclservers(self):
@@ -66,8 +65,7 @@ class XMLParser:
         doc_root = ParseXML.getroot()
         eclservers = []
         for i in doc_root.findall('.//EclServerProcess/Instance'):
-            ECLIP = i.attrib['netAddress']
-            eclservers.append(ECLIP)
+            eclservers.append(i.attrib['netAddress'])
         return eclservers
 
     def eclagent(self):
@@ -75,8 +73,7 @@ class XMLParser:
         doc_root = ParseXML.getroot()
         agents = []
         for i in doc_root.findall('.//EclAgentProcess/Instance'):
-            AgentIP = i.attrib['netAddress']
-            agents.append(AgentIP)
+            agents.append(i.attrib['netAddress'])
         return agents
 
     def dfuserver(self):
@@ -84,8 +81,7 @@ class XMLParser:
         doc_root = ParseXML.getroot()
         dfuserver = []
         for i in doc_root.findall('.//DfuServerProcess/Instance'):
-            DfuServer = i.attrib['netAddress']
-            dfuserver.append(DfuServer)
+            dfuserver.append(i.attrib['netAddress'])
         return dfuserver
 
 
@@ -94,8 +90,7 @@ class XMLParser:
         doc_root = ParseXML.getroot()
         ESP = []
         for i in doc_root.findall('.//EspProcess/Instance'):
-            EspServer = i.attrib['netAddress']
-            ESP.append(EspServer)
+            ESP.append(i.attrib['netAddress'])
         return ESP
 
 
@@ -104,8 +99,7 @@ class XMLParser:
         doc_root = ParseXML.getroot()
         eclscheduler = []
         for i in doc_root.findall('.//EclSchedulerProcess/Instance'):
-            scheduler = i.attrib['netAddress']
-            eclscheduler.append(scheduler)
+            eclscheduler.append(i.attrib['netAddress'])
         return eclscheduler
 
     def Roxie(self):
@@ -134,8 +128,9 @@ class XMLParser:
     def sasha(self):
         ParseXML = ET.parse(xml_local)
         doc_root = ParseXML.getroot()
+        Sasha = []
         for i in doc_root.findall('.//SashaServerProcess/Instance'):
-            Sasha = i.attrib['netAddress']
+            Sasha.append(i.attrib['netAddress'])
         return Sasha
 
 
@@ -179,5 +174,3 @@ class XMLParser:
                 pass
         return ThorCluster
 
-print(XMLParser().Roxie())
-print(XMLParser().ThorSlave())
