@@ -12,13 +12,10 @@ if thor_cluster:
     unique_values = []
     keys_with_duplicate_values = []
     for key, value in thor_cluster.items():
-        #print('k ', key)
-        #print('v ', value)
         if value not in unique_values:
             unique_values.append(value)
         elif value in unique_values:
             keys_with_duplicate_values.append(key)
-    print('FINAL    ', keys_with_duplicate_values)
     for deletion in keys_with_duplicate_values:
         del thor_cluster[deletion]
     print(thor_cluster)
