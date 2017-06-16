@@ -1,15 +1,18 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from __future__ import print_function
+import gethpcc
+import os
 
-import getenv
-import fileinput
+name = gethpcc.environment_name()
+json_file = name + '.json'
+file_location = os.path.abspath("../json_files/" + json_file)
+new_json =open(file_location, 'w+')
 
-name = getenv.environment_name()
-
-with fileinput.FileInput('../grafana-template.json', inplace=True, backup='.backup') as template:
+with open('../grafana-template.json', 'r+') as template:
     for line in template:
         if 'cluster-template' in line:
-            print(line.replace('cluster-template', name), end='')
+            new_line = line.replace('cluster-template', name).replace('\n', '')
+            new_json.write(new_line)
         else:
-            print(line, end='')
+            new_json.write(line)
+new_json.close()
