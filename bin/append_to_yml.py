@@ -36,9 +36,9 @@ if roxie_cluster:
         for server in roxie_cluster[cluster_name]:
             targets.append(server + ':9100')
         new_environment = """\n
-     - job_name: '%s'
+  - job_name: '%s'
 
-       static_configs:
-        - targets: %s""" % (job_name + ' ' + cluster_name, targets)
+    static_configs:
+     - targets: %s""" % (job_name + ' ' + cluster_name, targets)
         with open('../prometheus.yml', 'a+') as prometheus_file:
             prometheus_file.write(new_environment)
