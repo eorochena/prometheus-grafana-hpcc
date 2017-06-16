@@ -18,7 +18,6 @@ if thor_cluster:
             keys_with_duplicate_values.append(key)
     for deletion in keys_with_duplicate_values:
         del thor_cluster[deletion]
-    print(thor_cluster)
     for cluster_name in thor_cluster:
         targets = []
         for server in thor_cluster[cluster_name]:
